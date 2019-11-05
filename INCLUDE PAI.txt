@@ -110,22 +110,22 @@ MODULE user_command_9001 INPUT.
       cl_gui_cfw=>flush( ).                      "Se libera memoria y refresca el front (gui)
 
       IF v_bonif EQ 'X'.
-        t_zmpte3010_alv[] = t_TABLA_DB_1_alv_aux[].
+        t_db1_alv[] = t_TABLA_DB_1_alv_aux[].
 
       ELSEIF v_ac_dan EQ 'X'.
-        t_zmpte3970_alv[] = t_TABLA_DB_2_alv_aux[].
+        t_db2_alv[] = t_TABLA_DB_2_alv_aux[].
 
       ELSEIF v_desc_esp EQ 'X'.
-        t_zmpte3060_alv[] = t_TABLA_DB_3_alv_aux[].
+        t_db3_alv[] = t_TABLA_DB_3_alv_aux[].
 
       ELSEIF v_cond_serv EQ 'X'.
-        t_zmpte3070_alv[] = t_TABLA_DB_4_alv_aux[].
+        t_db4_alv[] = t_TABLA_DB_4_alv_aux[].
 
       ELSEIF v_plaz_topes EQ 'X'.
-        t_zmpte3070_alv[] = t_TABLA_DB_5_alv_aux[].
+        t_db5_alv[] = t_TABLA_DB_5_alv_aux[].
 
       ELSEIF v_ap_precio EQ 'X'.
-        t_zmpte7580_alv[] = t_TABLA_DB_6_alv_aux[].
+        t_db6_alv[] = t_TABLA_DB_6_alv_aux[].
 
       ENDIF.
 
@@ -142,30 +142,6 @@ MODULE user_command_9001 INPUT.
 
       " Llenamos el flag que nos situa en el alv principal
       v_alv_principal = 'X'.
-
-      LEAVE TO SCREEN 0.
-
-  ENDCASE.
-
-ENDMODULE.
-*&---------------------------------------------------------------------*
-*&      Module  USER_COMMAND_9002  INPUT
-*&---------------------------------------------------------------------*
-*       text
-*----------------------------------------------------------------------*
-MODULE user_command_9002 INPUT.
-
-  CASE sy-ucomm.
-
-    WHEN '&BTNOK'.
-      IF v_motivo IS INITIAL.
-        MESSAGE TEXT-005 TYPE 'I' DISPLAY LIKE 'E'.
-      ELSE.
-        "update
-        LEAVE TO SCREEN 0.
-      ENDIF.
-
-    WHEN '&BTNCAN'.
 
       LEAVE TO SCREEN 0.
 
