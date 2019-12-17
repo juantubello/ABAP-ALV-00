@@ -17,13 +17,13 @@
       TYPES: cell TYPE lvc_t_styl,
     END OF ty_DB_TABLA_2,
 
-    " DB_TABLA_3 - Plazos y Topes de fijación
+    " DB_TABLA_3 - Plazos y Topes de fijaciÃ³n
     BEGIN OF ty_DB_TABLA_3.
       INCLUDE TYPE DB_TABLA_3.
       TYPES: cell TYPE lvc_t_styl,
     END OF ty_DB_TABLA_3,
 
-    " DB_TABLA_4 - Act. dañados
+    " DB_TABLA_4 - Act. daÃ±ados
     BEGIN OF ty_DB_TABLA_4.
       INCLUDE TYPE DB_TABLA_4.
       TYPES: cell TYPE lvc_t_styl,
