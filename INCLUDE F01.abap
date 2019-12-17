@@ -26,7 +26,7 @@ FORM obtener_datos.
       MOVE-CORRESPONDING t_TABLA_DB_2_alv TO t_TABLA_DB_2.
     ENDIF.
 
-    " TABLA_DB_3 - Plazos y Topes de fijaci髇
+    " TABLA_DB_3 - Plazos y Topes de fijaci贸n
     SELECT *
       FROM TABLA_DB_3
       INTO CORRESPONDING FIELDS OF TABLE t_TABLA_DB_3_alv
@@ -36,7 +36,7 @@ FORM obtener_datos.
       MOVE-CORRESPONDING t_TABLA_DB_3_alv TO t_TABLA_DB_3.
     ENDIF.
 
-    " TABLA_DB_7 - Act. da馻dos
+    " TABLA_DB_7 - Act. da帽ados
     SELECT *
       FROM TABLA_DB_7
       INTO CORRESPONDING FIELDS OF TABLE t_TABLA_DB_7_alv
@@ -91,9 +91,9 @@ FORM mostrar_alv_principal.
         tl_exclude       TYPE ui_functions,                       "Exclusion de botones
         ol_event_handler TYPE REF TO lcl_event_handler_autorizar. "Instancia de clase
 
-  DATA: wl_layout TYPE lvc_s_layo.                                "Dise駉
+  DATA: wl_layout TYPE lvc_s_layo.                                "Dise帽o
 
-* L骻ica *
+* L贸gica *
 **********
   v_alv_principal = 'X'.
   "Si ya esta creado el ALV solamente refresco el mismo.
@@ -135,7 +135,7 @@ FORM mostrar_alv_principal.
                WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
   ENDIF.
 
-  " Creo el cat醠ogo
+  " Creo el cat谩logo
   PERFORM armar_fieldcat USING 'TABLA_DB_1'
                          CHANGING tl_fieldcat.
 
@@ -147,17 +147,17 @@ FORM mostrar_alv_principal.
   ENDLOOP.
   UNASSIGN:<fs_fieldcat>.
 
-  v_flag_add_delete_row = 'X'. "Eliminar botones de a馻dir y borrar registros del ALV
+  v_flag_add_delete_row = 'X'. "Eliminar botones de a帽adir y borrar registros del ALV
 
   " Se excluyen botones innecesarios
   PERFORM excluir_botones_ppal   USING v_flag_add_delete_row   CHANGING tl_exclude.
 
   CLEAR v_flag_add_delete_row.
 
-  " Se a馻de la optimizaci髇 de columnas al Dise駉
+  " Se a帽ade la optimizaci贸n de columnas al Dise帽o
   MOVE: 'X' TO wl_layout-col_opt.
 
-  " Creaci髇 de objeto para manejar los eventos
+  " Creaci贸n de objeto para manejar los eventos
   CREATE OBJECT ol_event_handler.
   SET HANDLER ol_event_handler->handle_toolbar FOR o_alv.
   SET HANDLER ol_event_handler->handle_user_command FOR o_alv.
@@ -167,7 +167,7 @@ FORM mostrar_alv_principal.
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-  " Se llama al m閠odo para mostrar el ALV
+  " Se llama al m茅todo para mostrar el ALV
   CALL METHOD o_alv->set_table_for_first_display
     EXPORTING
 *     i_structure_name              = 'TABLA_DB_1'
@@ -190,7 +190,7 @@ ENDFORM.
 FORM armar_fieldcat  USING pe_estructura TYPE dd02l-tabname
                      CHANGING pt_fieldcat TYPE lvc_t_fcat.
 
-  " Se crea el cat醠ogo a partir de la estructura obtenida por parametro
+  " Se crea el cat谩logo a partir de la estructura obtenida por parametro
   CALL FUNCTION 'LVC_FIELDCATALOG_MERGE'
     EXPORTING
       i_structure_name = pe_estructura
@@ -210,7 +210,7 @@ FORM excluir_botones_ppal USING pv_flag TYPE c
 
   DATA wl_exclude TYPE ui_func.
 
-* L骻ica *
+* L贸gica *
 **********
 
   wl_exclude = cl_gui_alv_grid=>mc_fc_loc_cut.
@@ -275,7 +275,7 @@ FORM mostrar_alv_desc_bonif. "Tabla TABLA_DB_2
         tl_exclude_desc_bonif       TYPE ui_functions,                       "Exclusion de botones
         ol_event_handler_desc_bonif TYPE REF TO lcl_event_handler_autorizar. "Instancia de clase
 
-  DATA: wl_layout_desc_bonif TYPE lvc_s_layo.                                "Dise駉
+  DATA: wl_layout_desc_bonif TYPE lvc_s_layo.                                "Dise帽o
 
   DATA: vl_index   TYPE i,                                                   "Indice
         lt_celltab TYPE lvc_t_styl.                                          "Tabla de celdas (para setear campos clave como no editables)
@@ -284,7 +284,7 @@ FORM mostrar_alv_desc_bonif. "Tabla TABLA_DB_2
   DATA: tl_campos_clave TYPE STANDARD TABLE OF ty_campo_clave,               "Tabla para campos clave
         wl_campos_clave TYPE ty_campo_clave.                                 "Work area para campos clave
 
-* L骻ica *
+* L贸gica *
 **********
 
 * "Si ya esta creado el ALV solamente refresco el mismo.
@@ -297,7 +297,7 @@ FORM mostrar_alv_desc_bonif. "Tabla TABLA_DB_2
 
   PERFORM crear_obj_alv_botones.
 
-  " Creo el cat醠ogo
+  " Creo el cat谩logo
   PERFORM armar_fieldcat USING 'TABLA_DB_2'
   CHANGING tl_fieldcat_desc_bonif.
 
@@ -306,7 +306,7 @@ FORM mostrar_alv_desc_bonif. "Tabla TABLA_DB_2
   LOOP AT tl_fieldcat_desc_bonif ASSIGNING FIELD-SYMBOL(<fs_fieldcat_desc_bonif>).
 
     IF <fs_fieldcat_desc_bonif>-fieldname EQ 'CONTRNUM'.
-      <fs_fieldcat_desc_bonif>-auto_value = 'X'. "Al a馻dir un nuevo registro este toma el valor del contrato inmdediato superior.
+      <fs_fieldcat_desc_bonif>-auto_value = 'X'. "Al a帽adir un nuevo registro este toma el valor del contrato inmdediato superior.
     ELSE.
       <fs_fieldcat_desc_bonif>-edit = 'X'.
     ENDIF.
@@ -318,7 +318,7 @@ FORM mostrar_alv_desc_bonif. "Tabla TABLA_DB_2
   " Se excluyen botones innecesarios
   PERFORM excluir_botones_ppal  USING v_flag_add_delete_row   CHANGING tl_exclude_desc_bonif.
 
-  " Se a馻de la optimizaci髇 de columnas al Dise駉
+  " Se a帽ade la optimizaci贸n de columnas al Dise帽o
   MOVE: 'X' TO wl_layout_desc_bonif-col_opt,
         'CELL' TO wl_layout_desc_bonif-stylefname. "Se utiliza para grisar los campos del ALV
 
@@ -351,7 +351,7 @@ FORM mostrar_alv_desc_bonif. "Tabla TABLA_DB_2
     MODIFY t_TABLA_DB_2_alv FROM wl_TABLA_DB_2 INDEX vl_index.
   ENDLOOP.
 
-  " Creaci髇 de objeto para manejar los eventos
+  " Creaci贸n de objeto para manejar los eventos
   CREATE OBJECT ol_event_handler_desc_bonif.
 
   SET HANDLER ol_event_handler_desc_bonif->handle_user_command FOR o_alv_botones.
@@ -362,10 +362,10 @@ FORM mostrar_alv_desc_bonif. "Tabla TABLA_DB_2
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-*  "Desactivo el log de errores al a馻dir un nuevo registro
+*  "Desactivo el log de errores al a帽adir un nuevo registro
 *  o_alv_botones->activate_display_protocol( space ).
 
-  " Se llama al m閠odo para mostrar el ALV
+  " Se llama al m茅todo para mostrar el ALV
   CALL METHOD o_alv_botones->set_table_for_first_display
     EXPORTING
 *     i_structure_name              = 'TABLA_DB_1'
@@ -394,7 +394,7 @@ FORM mostrar_alv_plaz_tope. " Tabla TABLA_DB_3
         tl_exclude_plaz_tope       TYPE ui_functions,                       "Exclusion de botones
         ol_event_handler_plaz_tope TYPE REF TO lcl_event_handler_autorizar. "Instancia de clase
 
-  DATA: wl_layout_plaz_tope TYPE lvc_s_layo.                                "Dise駉
+  DATA: wl_layout_plaz_tope TYPE lvc_s_layo.                                "Dise帽o
 
   DATA: vl_index   TYPE i,                                                   "Indice
         lt_celltab TYPE lvc_t_styl.                                          "Tabla de celdas (para setear campos clave como no editables)
@@ -404,7 +404,7 @@ FORM mostrar_alv_plaz_tope. " Tabla TABLA_DB_3
         wl_campos_clave TYPE ty_campo_clave.                                 "Work area para campos clave
 
 
-* L骻ica *
+* L贸gica *
 **********
 
 *  "Si ya esta creado el ALV solamente refresco el mismo.
@@ -417,14 +417,14 @@ FORM mostrar_alv_plaz_tope. " Tabla TABLA_DB_3
 
   PERFORM crear_obj_alv_botones.
 
-  " Creo el cat醠ogo
+  " Creo el cat谩logo
   PERFORM armar_fieldcat USING 'TABLA_DB_3'
   CHANGING tl_fieldcat_plaz_tope.
 
   LOOP AT tl_fieldcat_plaz_tope ASSIGNING FIELD-SYMBOL(<fs_fieldcat_plaz_tope>).
 
     IF <fs_fieldcat_plaz_tope>-fieldname EQ 'CONTRNUM'.
-      <fs_fieldcat_plaz_tope>-auto_value = 'X'. "Al a馻dir un nuevo registro este toma el valor del contrato inmdediato superior.
+      <fs_fieldcat_plaz_tope>-auto_value = 'X'. "Al a帽adir un nuevo registro este toma el valor del contrato inmdediato superior.
     ELSE.
       <fs_fieldcat_plaz_tope>-edit = 'X'.
     ENDIF.
@@ -436,7 +436,7 @@ FORM mostrar_alv_plaz_tope. " Tabla TABLA_DB_3
   " Se excluyen botones innecesarios
   PERFORM excluir_botones_ppal   USING v_flag_add_delete_row  CHANGING tl_exclude_plaz_tope.
 
-  " Se a馻de la optimizaci髇 de columnas al Dise駉
+  " Se a帽ade la optimizaci贸n de columnas al Dise帽o
   MOVE: 'X' TO wl_layout_plaz_tope-col_opt,
   'CELL' TO wl_layout_plaz_tope-stylefname. "Se utiliza para grisar los campos del ALV
 
@@ -464,7 +464,7 @@ FORM mostrar_alv_plaz_tope. " Tabla TABLA_DB_3
     MODIFY t_TABLA_DB_3_alv FROM wl_TABLA_DB_3 INDEX vl_index.
   ENDLOOP.
 
-  " Creaci髇 de objeto para manejar los eventos
+  " Creaci贸n de objeto para manejar los eventos
   CREATE OBJECT ol_event_handler_plaz_tope.
 
   SET HANDLER ol_event_handler_plaz_tope->handle_user_command FOR o_alv_botones.
@@ -475,10 +475,10 @@ FORM mostrar_alv_plaz_tope. " Tabla TABLA_DB_3
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-  "Desactivo el log de errores al a馻dir un nuevo registro
+  "Desactivo el log de errores al a帽adir un nuevo registro
 *  o_alv_botones->activate_display_protocol( space ).
 
-  " Se llama al m閠odo para mostrar el ALV
+  " Se llama al m茅todo para mostrar el ALV
   CALL METHOD o_alv_botones->set_table_for_first_display
     EXPORTING
       is_layout                     = wl_layout_plaz_tope
@@ -507,7 +507,7 @@ FORM mostrar_alv_ac_dan. "Tabla TABLA_DB_7
         tl_exclude_ac_dan       TYPE ui_functions,                       "Exclusion de botones
         ol_event_handler_ac_dan TYPE REF TO lcl_event_handler_autorizar. "Instancia de clase
 
-  DATA: wl_layout_ac_dan TYPE lvc_s_layo.                                "Dise駉
+  DATA: wl_layout_ac_dan TYPE lvc_s_layo.                                "Dise帽o
 
   DATA: vl_index   TYPE i,                                               "Indice
         lt_celltab TYPE lvc_t_styl.                                      "Tabla de celdas (para setear campos clave como no editables)
@@ -516,7 +516,7 @@ FORM mostrar_alv_ac_dan. "Tabla TABLA_DB_7
   DATA: tl_campos_clave TYPE STANDARD TABLE OF ty_campo_clave,           "Tabla para campos clave
         wl_campos_clave TYPE ty_campo_clave.                             "Work area para campos clave
 
-* L骻ica *
+* L贸gica *
 **********
 
 *  "Si ya esta creado el ALV solamente refresco el mismo.
@@ -529,14 +529,14 @@ FORM mostrar_alv_ac_dan. "Tabla TABLA_DB_7
 
   PERFORM crear_obj_alv_botones.
 
-  " Creo el cat醠ogo
+  " Creo el cat谩logo
   PERFORM armar_fieldcat USING 'TABLA_DB_7'
   CHANGING tl_fieldcat_ac_dan.
 
   LOOP AT tl_fieldcat_ac_dan ASSIGNING FIELD-SYMBOL(<fs_fieldcat_ac_dan>).
 
     IF <fs_fieldcat_ac_dan>-fieldname EQ 'CONTRNUM'.
-      <fs_fieldcat_ac_dan>-auto_value = 'X'. "Al a馻dir un nuevo registro este toma el valor del contrato inmdediato superior.
+      <fs_fieldcat_ac_dan>-auto_value = 'X'. "Al a帽adir un nuevo registro este toma el valor del contrato inmdediato superior.
     ELSE.
       <fs_fieldcat_ac_dan>-edit = 'X'.
     ENDIF.
@@ -548,7 +548,7 @@ FORM mostrar_alv_ac_dan. "Tabla TABLA_DB_7
   " Se excluyen botones innecesarios
   PERFORM excluir_botones_ppal  USING v_flag_add_delete_row   CHANGING tl_exclude_ac_dan.
 
-  " Se a馻de la optimizaci髇 de columnas al Dise駉
+  " Se a帽ade la optimizaci贸n de columnas al Dise帽o
   MOVE: 'X' TO wl_layout_ac_dan-col_opt,
         'CELL' TO wl_layout_ac_dan-stylefname. "Se utiliza para grisar los campos del ALV
 
@@ -579,7 +579,7 @@ FORM mostrar_alv_ac_dan. "Tabla TABLA_DB_7
     MODIFY t_TABLA_DB_7_alv FROM wl_TABLA_DB_7 INDEX vl_index.
   ENDLOOP.
 
-  " Creaci髇 de objeto para manejar los eventos
+  " Creaci贸n de objeto para manejar los eventos
   CREATE OBJECT ol_event_handler_ac_dan.
 
   SET HANDLER ol_event_handler_ac_dan->handle_user_command FOR o_alv_botones.
@@ -590,10 +590,10 @@ FORM mostrar_alv_ac_dan. "Tabla TABLA_DB_7
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-  "Desactivo el log de errores al a馻dir un nuevo registro
+  "Desactivo el log de errores al a帽adir un nuevo registro
 *  o_alv_botones->activate_display_protocol( space ).
 
-  " Se llama al m閠odo para mostrar el ALV
+  " Se llama al m茅todo para mostrar el ALV
   CALL METHOD o_alv_botones->set_table_for_first_display
     EXPORTING
       is_layout                     = wl_layout_ac_dan
@@ -622,7 +622,7 @@ FORM mostrar_alv_desc_especiales. "Tabla TABLA_DB_4
         tl_exclude_desc_esp       TYPE ui_functions,                       "Exclusion de botones
         ol_event_handler_desc_esp TYPE REF TO lcl_event_handler_autorizar. "Instancia de clase
 
-  DATA: wl_layout_desc_esp TYPE lvc_s_layo.                                "Dise駉
+  DATA: wl_layout_desc_esp TYPE lvc_s_layo.                                "Dise帽o
 
   DATA: vl_index   TYPE i,                                                 "Indice
         lt_celltab TYPE lvc_t_styl.                                        "Tabla de celdas (para setear campos clave como no editables)
@@ -632,7 +632,7 @@ FORM mostrar_alv_desc_especiales. "Tabla TABLA_DB_4
         wl_campos_clave TYPE ty_campo_clave.                               "Work area para campos clave
 
 
-* L骻ica *
+* L贸gica *
 **********
 
 *  "Si ya esta creado el ALV solamente refresco el mismo.
@@ -645,14 +645,14 @@ FORM mostrar_alv_desc_especiales. "Tabla TABLA_DB_4
 
   PERFORM crear_obj_alv_botones.
 
-  " Creo el cat醠ogo
+  " Creo el cat谩logo
   PERFORM armar_fieldcat USING 'TABLA_DB_4'
   CHANGING tl_fieldcat_desc_esp.
 
   LOOP AT tl_fieldcat_desc_esp ASSIGNING FIELD-SYMBOL(<fs_fieldcat_desc_esp>).
 
     IF <fs_fieldcat_desc_esp>-fieldname EQ 'CONTRNUM'.
-      <fs_fieldcat_desc_esp>-auto_value = 'X'. "Al a馻dir un nuevo registro este toma el valor del contrato inmdediato superior.
+      <fs_fieldcat_desc_esp>-auto_value = 'X'. "Al a帽adir un nuevo registro este toma el valor del contrato inmdediato superior.
     ELSE.
       <fs_fieldcat_desc_esp>-edit = 'X'.
     ENDIF.
@@ -664,7 +664,7 @@ FORM mostrar_alv_desc_especiales. "Tabla TABLA_DB_4
   " Se excluyen botones innecesarios
   PERFORM excluir_botones_ppal  USING v_flag_add_delete_row   CHANGING tl_exclude_desc_esp.
 
-  " Se a馻de la optimizaci髇 de columnas al Dise駉
+  " Se a帽ade la optimizaci贸n de columnas al Dise帽o
   MOVE: 'X' TO wl_layout_desc_esp-col_opt,
         'CELL' TO wl_layout_desc_esp-stylefname. "Se utiliza para grisar los campos del ALV
 
@@ -694,7 +694,7 @@ FORM mostrar_alv_desc_especiales. "Tabla TABLA_DB_4
     MODIFY t_TABLA_DB_4_alv FROM wl_TABLA_DB_4 INDEX vl_index.
   ENDLOOP.
 
-  " Creaci髇 de objeto para manejar los eventos
+  " Creaci贸n de objeto para manejar los eventos
   CREATE OBJECT ol_event_handler_desc_esp.
 
   SET HANDLER ol_event_handler_desc_esp->handle_user_command FOR o_alv_botones.
@@ -705,10 +705,10 @@ FORM mostrar_alv_desc_especiales. "Tabla TABLA_DB_4
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-  "Desactivo el log de errores al a馻dir un nuevo registro
+  "Desactivo el log de errores al a帽adir un nuevo registro
 *  o_alv_botones->activate_display_protocol( space ).
 
-  " Se llama al m閠odo para mostrar el ALV
+  " Se llama al m茅todo para mostrar el ALV
   CALL METHOD o_alv_botones->set_table_for_first_display
     EXPORTING
       is_layout                     = wl_layout_desc_esp
@@ -738,7 +738,7 @@ FORM mostrar_alv_ap_precio. "Tabla TABLA_DB_6
         tl_exclude_ap_precio       TYPE ui_functions,                       "Exclusion de botones
         ol_event_handler_ap_precio TYPE REF TO lcl_event_handler_autorizar. "Instancia de clase
 
-  DATA: wl_layout_ap_precio TYPE lvc_s_layo.                                "Dise駉
+  DATA: wl_layout_ap_precio TYPE lvc_s_layo.                                "Dise帽o
 
   DATA: vl_index   TYPE i,                                                 "Indice
         lt_celltab TYPE lvc_t_styl.                                        "Tabla de celdas (para setear campos clave como no editables)
@@ -747,7 +747,7 @@ FORM mostrar_alv_ap_precio. "Tabla TABLA_DB_6
   DATA: tl_campos_clave TYPE STANDARD TABLE OF ty_campo_clave,             "Tabla para campos clave
         wl_campos_clave TYPE ty_campo_clave.                               "Work area para campos clave
 
-* L骻ica *
+* L贸gica *
 **********
 
 *  "Si ya esta creado el ALV solamente refresco el mismo.
@@ -760,14 +760,14 @@ FORM mostrar_alv_ap_precio. "Tabla TABLA_DB_6
 
   PERFORM crear_obj_alv_botones.
 
-  " Creo el cat醠ogo
+  " Creo el cat谩logo
   PERFORM armar_fieldcat USING 'TABLA_DB_6'
   CHANGING tl_fieldcat_ap_precio.
 
   LOOP AT tl_fieldcat_ap_precio ASSIGNING FIELD-SYMBOL(<fs_fieldcat_ap_precio>).
 
     IF <fs_fieldcat_ap_precio>-fieldname EQ 'CONTRNUM'.
-      <fs_fieldcat_ap_precio>-auto_value = 'X'. "Al a馻dir un nuevo registro este toma el valor del contrato inmdediato superior.
+      <fs_fieldcat_ap_precio>-auto_value = 'X'. "Al a帽adir un nuevo registro este toma el valor del contrato inmdediato superior.
     ELSE.
       <fs_fieldcat_ap_precio>-edit = 'X'.
     ENDIF.
@@ -779,7 +779,7 @@ FORM mostrar_alv_ap_precio. "Tabla TABLA_DB_6
   " Se excluyen botones innecesarios
   PERFORM excluir_botones_ppal   USING v_flag_add_delete_row  CHANGING tl_exclude_ap_precio.
 
-  " Se a馻de la optimizaci髇 de columnas al Dise駉
+  " Se a帽ade la optimizaci贸n de columnas al Dise帽o
   MOVE: 'X' TO wl_layout_ap_precio-col_opt,
         'CELL' TO wl_layout_ap_precio-stylefname. "Se utiliza para grisar los campos del ALV
 
@@ -807,7 +807,7 @@ FORM mostrar_alv_ap_precio. "Tabla TABLA_DB_6
     MODIFY t_TABLA_DB_6_alv  FROM wl_TABLA_DB_6  INDEX vl_index.
   ENDLOOP.
 
-  " Creaci髇 de objeto para manejar los eventos
+  " Creaci贸n de objeto para manejar los eventos
   CREATE OBJECT ol_event_handler_ap_precio.
 
   SET HANDLER ol_event_handler_ap_precio->handle_user_command FOR o_alv_botones.
@@ -818,10 +818,10 @@ FORM mostrar_alv_ap_precio. "Tabla TABLA_DB_6
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-  "Desactivo el log de errores al a馻dir un nuevo registro
+  "Desactivo el log de errores al a帽adir un nuevo registro
 *  o_alv_botones->activate_display_protocol( space ).
 
-  " Se llama al m閠odo para mostrar el ALV
+  " Se llama al m茅todo para mostrar el ALV
   CALL METHOD o_alv_botones->set_table_for_first_display
     EXPORTING
       is_layout                     = wl_layout_ap_precio
@@ -851,7 +851,7 @@ FORM mostrar_alv_cond_serv. "Tabla TABLA_DB_4
         tl_exclude_cond_serv       TYPE ui_functions,                       "Exclusion de botones
         ol_event_handler_cond_serv TYPE REF TO lcl_event_handler_autorizar. "Instancia de clase
 
-  DATA: wl_layout_cond_serv TYPE lvc_s_layo.                                "Dise駉
+  DATA: wl_layout_cond_serv TYPE lvc_s_layo.                                "Dise帽o
 
   DATA: vl_index   TYPE i,                                                 "Indice
         lt_celltab TYPE lvc_t_styl.                                        "Tabla de celdas (para setear campos clave como no editables)
@@ -861,7 +861,7 @@ FORM mostrar_alv_cond_serv. "Tabla TABLA_DB_4
         wl_campos_clave TYPE ty_campo_clave.                               "Work area para campos clave
 
 
-* L骻ica *
+* L贸gica *
 **********
 
 *  "Si ya esta creado el ALV solamente refresco el mismo.
@@ -874,14 +874,14 @@ FORM mostrar_alv_cond_serv. "Tabla TABLA_DB_4
 
   PERFORM crear_obj_alv_botones.
 
-  " Creo el cat醠ogo
+  " Creo el cat谩logo
   PERFORM armar_fieldcat USING 'TABLA_DB_4'
   CHANGING tl_fieldcat_cond_serv.
 
   LOOP AT tl_fieldcat_cond_serv ASSIGNING FIELD-SYMBOL(<fs_fieldcat_cond_serv>).
 
     IF <fs_fieldcat_cond_serv>-fieldname EQ 'CONTRNUM'.
-      <fs_fieldcat_cond_serv>-auto_value = 'X'. "Al a馻dir un nuevo registro este toma el valor del contrato inmdediato superior.
+      <fs_fieldcat_cond_serv>-auto_value = 'X'. "Al a帽adir un nuevo registro este toma el valor del contrato inmdediato superior.
     ELSE.
       <fs_fieldcat_cond_serv>-edit = 'X'.
     ENDIF.
@@ -893,7 +893,7 @@ FORM mostrar_alv_cond_serv. "Tabla TABLA_DB_4
   " Se excluyen botones innecesarios
   PERFORM excluir_botones_ppal  USING v_flag_add_delete_row   CHANGING tl_exclude_cond_serv.
 
-  " Se a馻de la optimizaci髇 de columnas al Dise駉
+  " Se a帽ade la optimizaci贸n de columnas al Dise帽o
   MOVE: 'X' TO wl_layout_cond_serv-col_opt,
         'CELL' TO wl_layout_cond_serv-stylefname. "Se utiliza para grisar los campos del ALV
 
@@ -924,7 +924,7 @@ FORM mostrar_alv_cond_serv. "Tabla TABLA_DB_4
     MODIFY t_TABLA_DB_4_alv  FROM wl_TABLA_DB_4  INDEX vl_index.
   ENDLOOP.
 
-  " Creaci髇 de objeto para manejar los eventos
+  " Creaci贸n de objeto para manejar los eventos
   CREATE OBJECT ol_event_handler_cond_serv.
 
   SET HANDLER ol_event_handler_cond_serv->handle_user_command FOR o_alv_botones.
@@ -935,14 +935,14 @@ FORM mostrar_alv_cond_serv. "Tabla TABLA_DB_4
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-  "Desactivo el log de errores al a馻dir un nuevo registro
+  "Desactivo el log de errores al a帽adir un nuevo registro
 *  o_alv_botones->activate_display_protocol( space ).
 
   CALL METHOD o_alv_botones->register_edit_event
     EXPORTING
       i_event_id = cl_gui_alv_grid=>mc_evt_modified.
 
-  " Se llama al m閠odo para mostrar el ALV
+  " Se llama al m茅todo para mostrar el ALV
   CALL METHOD o_alv_botones->set_table_for_first_display
     EXPORTING
       is_layout                     = wl_layout_cond_serv
@@ -1321,7 +1321,7 @@ FORM guardo_TABLA_DB_2 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   UNASSIGN: <fs_mod_rows_standard>.
 
-  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci髇 del programa.
+  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci贸n del programa.
   IF t_fieldcat_aux IS INITIAL.
     LOOP AT er_data_changed->mt_fieldcatalog INTO  wl_fieldcat_aux.
       APPEND wl_fieldcat_aux TO t_fieldcat_aux.
@@ -1330,7 +1330,7 @@ FORM guardo_TABLA_DB_2 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   ASSIGN er_data_changed->mp_mod_rows->* TO <fs_mod_rows_standard>. "Se asigna al FS el tipo tabla
 
-  " Situacion ---> Modificaci髇 / Nuevo registro
+  " Situacion ---> Modificaci贸n / Nuevo registro
   IF <fs_mod_rows_standard> IS ASSIGNED AND <fs_mod_rows_standard> IS NOT INITIAL.
 
     READ TABLE  <fs_mod_rows_standard> ASSIGNING <fsl_mod_rows_DB2> INDEX 1. "Se asigna el FS con la tabla a mi tipo TABLA_DB_2
@@ -1367,7 +1367,7 @@ FORM guardo_TABLA_DB_2 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
         ENDIF.
 
-        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci髇 a las tabla correspondiente.
+        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci贸n a las tabla correspondiente.
         IF v_duplicados EQ 'X'.
           EXIT.
         ENDIF.
@@ -1412,7 +1412,7 @@ FORM guardo_TABLA_DB_2 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
           ENDLOOP.
 
-          "Si no existe se hace un APPEND del registro a la tabla de modificaci髇es.
+          "Si no existe se hace un APPEND del registro a la tabla de modificaci贸nes.
         ELSE.
           APPEND <fsl_mod_rows_DB2> TO t_DB2_mod.
 
@@ -1573,7 +1573,7 @@ FORM guardo_TABLA_DB_7 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   UNASSIGN: <fs_mod_rows_standard>.
 
-  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci髇 del programa.
+  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci贸n del programa.
   IF t_fieldcat_aux IS INITIAL.
     LOOP AT er_data_changed->mt_fieldcatalog INTO  wl_fieldcat_aux.
       APPEND wl_fieldcat_aux TO t_fieldcat_aux.
@@ -1582,7 +1582,7 @@ FORM guardo_TABLA_DB_7 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   ASSIGN er_data_changed->mp_mod_rows->* TO <fs_mod_rows_standard>. "Se asigna al FS el tipo tabla
 
-  " Situacion ---> Modificaci髇 / Nuevo registro
+  " Situacion ---> Modificaci贸n / Nuevo registro
   IF <fs_mod_rows_standard> IS ASSIGNED AND <fs_mod_rows_standard> IS NOT INITIAL.
 
     READ TABLE  <fs_mod_rows_standard> ASSIGNING <fsl_mod_rows_e3970> INDEX 1. "Se asigna el FS con la tabla a mi tipo TABLA_DB_2
@@ -1617,7 +1617,7 @@ FORM guardo_TABLA_DB_7 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
         ENDIF.
 
-        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci髇 a las tabla correspondiente.
+        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci贸n a las tabla correspondiente.
         IF v_duplicados EQ 'X'.
           EXIT.
         ENDIF.
@@ -1660,7 +1660,7 @@ FORM guardo_TABLA_DB_7 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
           ENDLOOP.
 
-          "Si no existe se hace un APPEND del registro a la tabla de modificaci髇es.
+          "Si no existe se hace un APPEND del registro a la tabla de modificaci贸nes.
         ELSE.
           APPEND <fsl_mod_rows_e3970> TO t_e3970_mod.
 
@@ -1821,7 +1821,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   UNASSIGN: <fs_mod_rows_standard>.
 
-  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci髇 del programa.
+  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci贸n del programa.
   IF t_fieldcat_aux IS INITIAL.
     LOOP AT er_data_changed->mt_fieldcatalog INTO  wl_fieldcat_aux.
       APPEND wl_fieldcat_aux TO t_fieldcat_aux.
@@ -1830,7 +1830,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   ASSIGN er_data_changed->mp_mod_rows->* TO <fs_mod_rows_standard>. "Se asigna al FS el tipo tabla
 
-  " Situacion ---> Modificaci髇 / Nuevo registro
+  " Situacion ---> Modificaci贸n / Nuevo registro
   IF <fs_mod_rows_standard> IS ASSIGNED AND <fs_mod_rows_standard> IS NOT INITIAL.
 
     READ TABLE  <fs_mod_rows_standard> ASSIGNING <fsl_mod_rows_DB4> INDEX 1. "Se asigna el FS con la tabla a mi tipo TABLA_DB_2
@@ -1864,7 +1864,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
           ENDLOOP.
 
         ENDIF.
-        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci髇 a las tabla correspondiente.
+        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci贸n a las tabla correspondiente.
         IF v_duplicados EQ 'X'.
           EXIT.
         ENDIF.
@@ -1907,7 +1907,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
           ENDLOOP.
 
-          "Si no existe se hace un APPEND del registro a la tabla de modificaci髇es.
+          "Si no existe se hace un APPEND del registro a la tabla de modificaci贸nes.
         ELSE.
           APPEND <fsl_mod_rows_DB4> TO t_DB4_mod.
 
@@ -2068,7 +2068,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   UNASSIGN: <fs_mod_rows_standard>.
 
-  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci髇 del programa.
+  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci贸n del programa.
   IF t_fieldcat_aux IS INITIAL.
     LOOP AT er_data_changed->mt_fieldcatalog INTO  wl_fieldcat_aux.
       APPEND wl_fieldcat_aux TO t_fieldcat_aux.
@@ -2077,7 +2077,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   ASSIGN er_data_changed->mp_mod_rows->* TO <fs_mod_rows_standard>. "Se asigna al FS el tipo tabla
 
-  " Situacion ---> Modificaci髇 / Nuevo registro
+  " Situacion ---> Modificaci贸n / Nuevo registro
   IF <fs_mod_rows_standard> IS ASSIGNED AND <fs_mod_rows_standard> IS NOT INITIAL.
 
     READ TABLE  <fs_mod_rows_standard> ASSIGNING <fsl_mod_rows_DB3> INDEX 1. "Se asigna el FS con la tabla a mi tipo TABLA_DB_2
@@ -2111,7 +2111,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
           ENDLOOP.
 
         ENDIF.
-        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci髇 a las tabla correspondiente.
+        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci贸n a las tabla correspondiente.
         IF v_duplicados EQ 'X'.
           EXIT.
         ENDIF.
@@ -2154,7 +2154,7 @@ FORM guardo_TABLA_DB_4 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
           ENDLOOP.
 
-          "Si no existe se hace un APPEND del registro a la tabla de modificaci髇es.
+          "Si no existe se hace un APPEND del registro a la tabla de modificaci贸nes.
         ELSE.
           APPEND <fsl_mod_rows_DB3> TO t_DB3_mod.
 
@@ -2317,7 +2317,7 @@ FORM guardo_TABLA_DB_3 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   UNASSIGN: <fs_mod_rows_standard>.
 
-  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci髇 del programa.
+  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci贸n del programa.
   IF t_fieldcat_aux IS INITIAL.
     LOOP AT er_data_changed->mt_fieldcatalog INTO  wl_fieldcat_aux.
       APPEND wl_fieldcat_aux TO t_fieldcat_aux.
@@ -2326,7 +2326,7 @@ FORM guardo_TABLA_DB_3 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   ASSIGN er_data_changed->mp_mod_rows->* TO <fs_mod_rows_standard>. "Se asigna al FS el tipo tabla
 
-  " Situacion ---> Modificaci髇 / Nuevo registro
+  " Situacion ---> Modificaci贸n / Nuevo registro
   IF <fs_mod_rows_standard> IS ASSIGNED AND <fs_mod_rows_standard> IS NOT INITIAL.
 
     READ TABLE  <fs_mod_rows_standard> ASSIGNING <fsl_mod_rows_DB5> INDEX 1. "Se asigna el FS con la tabla a mi tipo TABLA_DB_2
@@ -2359,7 +2359,7 @@ FORM guardo_TABLA_DB_3 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
         ENDIF.
 
-        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci髇 a las tabla correspondiente.
+        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci贸n a las tabla correspondiente.
         IF v_duplicados EQ 'X'.
           EXIT.
         ENDIF.
@@ -2400,7 +2400,7 @@ FORM guardo_TABLA_DB_3 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
           ENDLOOP.
 
-          "Si no existe se hace un APPEND del registro a la tabla de modificaci髇es.
+          "Si no existe se hace un APPEND del registro a la tabla de modificaci贸nes.
         ELSE.
           APPEND <fsl_mod_rows_DB5> TO t_DB5_mod.
 
@@ -2562,7 +2562,7 @@ FORM guardo_TABLA_DB_6 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   UNASSIGN: <fs_mod_rows_standard>.
 
-  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci髇 del programa.
+  " Guardo el nombre de todos los campos del ALV en la tabla t_fieldcat_aux, esta misma se utiliza posteriormente en la ejecuci贸n del programa.
   IF t_fieldcat_aux IS INITIAL.
     LOOP AT er_data_changed->mt_fieldcatalog INTO  wl_fieldcat_aux.
       APPEND wl_fieldcat_aux TO t_fieldcat_aux.
@@ -2571,7 +2571,7 @@ FORM guardo_TABLA_DB_6 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
   ASSIGN er_data_changed->mp_mod_rows->* TO <fs_mod_rows_standard>. "Se asigna al FS el tipo tabla
 
-  " Situacion ---> Modificaci髇 / Nuevo registro
+  " Situacion ---> Modificaci贸n / Nuevo registro
   IF <fs_mod_rows_standard> IS ASSIGNED AND <fs_mod_rows_standard> IS NOT INITIAL.
 
     READ TABLE  <fs_mod_rows_standard> ASSIGNING <fsl_mod_rows_e7580> INDEX 1. "Se asigna el FS con la tabla a mi tipo TABLA_DB_2
@@ -2604,7 +2604,7 @@ FORM guardo_TABLA_DB_6 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
         ENDIF.
 
-        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci髇 a las tabla correspondiente.
+        "Si existe clave duplicada salimos de la ejecucion de la rutina y no se appendea ninguna modificaci贸n a las tabla correspondiente.
         IF v_duplicados EQ 'X'.
           EXIT.
         ENDIF.
@@ -2645,7 +2645,7 @@ FORM guardo_TABLA_DB_6 USING  er_data_changed TYPE REF TO cl_alv_changed_data_pr
 
           ENDLOOP.
 
-          "Si no existe se hace un APPEND del registro a la tabla de modificaci髇es.
+          "Si no existe se hace un APPEND del registro a la tabla de modificaci贸nes.
         ELSE.
           APPEND <fsl_mod_rows_e7580> TO t_e7580_mod.
 
