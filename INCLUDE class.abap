@@ -3,7 +3,7 @@
 *&---------------------------------------------------------------------*
 CLASS lcl_event_handler_autorizar DEFINITION.
 
-  " Se define en que circusntancia se va a poder utilizar el método
+  " Se define en que circusntancia se va a poder utilizar el mÃ©todo
 
   PUBLIC SECTION.
     METHODS:
@@ -22,24 +22,24 @@ CLASS lcl_event_handler_autorizar IMPLEMENTATION.
 
     DATA: wl_toolbar TYPE stb_button.
 
-    " Se añade el pipe
+    " Se aÃ±ade el pipe
     MOVE 3 TO wl_toolbar-butn_type.
     APPEND wl_toolbar TO e_object->mt_toolbar.
     CLEAR wl_toolbar.
 
-    " Se añaden los botones
+    " Se aÃ±aden los botones
     wl_toolbar-function  = 'DESC_Y_BONIF'.
     wl_toolbar-text      = 'Desc y bonificaciones / Sustentable'.
     APPEND wl_toolbar TO e_object->mt_toolbar.
     CLEAR wl_toolbar.
 
     wl_toolbar-function  = 'PLAZ_Y_TOP_FIJ'.
-    wl_toolbar-text      = 'Plazos y topes de fijación'.
+    wl_toolbar-text      = 'Plazos y topes de fijaciÃ³n'.
     APPEND wl_toolbar TO e_object->mt_toolbar.
     CLEAR wl_toolbar.
 
     wl_toolbar-function  = 'DANIADOS'.
-    wl_toolbar-text      = 'Act. Dañados'.
+    wl_toolbar-text      = 'Act. DaÃ±ados'.
     APPEND wl_toolbar TO e_object->mt_toolbar.
     CLEAR wl_toolbar.
 
@@ -68,7 +68,7 @@ CLASS lcl_event_handler_autorizar IMPLEMENTATION.
       IMPORTING
         et_index_rows = tl_rows.
 
-    CASE e_ucomm.  "Selección del usuario
+    CASE e_ucomm.  "SelecciÃ³n del usuario
       WHEN 'DESC_Y_BONIF'.
 
         IF t_zmpte3010_alv IS INITIAL.
