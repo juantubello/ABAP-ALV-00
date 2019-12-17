@@ -37,7 +37,7 @@ ENDMODULE.
 *----------------------------------------------------------------------*
 MODULE mostrar_alv OUTPUT.
 
-  "Se lanza el ALV correspondiente según el flag.
+  "Se lanza el ALV correspondiente segÃºn el flag.
 
   IF v_bonif EQ 'X'.
 
